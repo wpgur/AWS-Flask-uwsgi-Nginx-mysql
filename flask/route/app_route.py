@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 app_route = Blueprint('first_route',__name__)
 
 
-db = pymysql.connect(host='3.133.97.241', port=3306, user='root', passwd='password',db='W2A', charset='utf8')
+db = pymysql.connect(host='aws_public_ip', port=3306, user='root', passwd='password',db='W2A', charset='utf8')
 
 cursor = db.cursor()
 
