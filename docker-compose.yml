@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+        db:
+                image: mysql:5.7
+                restart: always
+                environment:
+                        - MYSQL_USER=admin
+                        - MYSQL_PASSWORD=admin
+                        - MYSQL_ROOT_PASSWORD=password
+                        - MYSQL_DATABASE=W2A
+                        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+                volumes:
+                        - ./db/:/docker-entrypoint-initdb.d/
+                        - ./db/data:/var/lib/mysql
+                ports:
+                        - "3306:3306" 
+
+       
+        flask:
+                build: ./flask
+                container_name: flask
+                restart: always
+                environment:
+                        - APP_NAME=FlaskTest
+                depends_on:
+                        - db
+                expose:
+                        - 5000
+
+        nginx:
+                build: ./nginx
+                container_name: nginx
+                restart: always
+                ports:
+                        - "80:80"
